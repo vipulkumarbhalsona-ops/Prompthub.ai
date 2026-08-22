@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, render_template, send_from_directory, response
 from dotenv import load_dotenv
 import os
 import requests
@@ -7,6 +7,14 @@ import json
 load_dotenv()
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
+@app.route('/robots.txt')
+def robots_txt():
+    robots = """User-agent: *
+Allow: /
+
+Sitemap: https://prompthub-ai-8j44.onrender.com/sitemap.xml
+"""
+    return Response(robots, mimetype='text/plain')
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-me")
 
 # ====================== CONFIG ======================
