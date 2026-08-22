@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, response
+from flask import Flask, request, jsonify, render_template, send_from_directory, Response
 from dotenv import load_dotenv
 import os
 import requests
