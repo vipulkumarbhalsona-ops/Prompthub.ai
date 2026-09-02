@@ -15,6 +15,14 @@ Allow: /
 Sitemap: https://prompthub-ai-8j44.onrender.com/sitemap.xml
 """
     return Response(robots, mimetype='text/plain')
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory(
+        os.path.dirname(os.path.abspath(__file__)),
+        'sitemap.xml',
+        mimetype='application/xml'
+    )
+
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-me")
 
 # ====================== CONFIG ======================
@@ -28,7 +36,7 @@ def get_api_keys():
 DEFAULT_MODELS = [
     "gemini-3.6-flash",
     "gemini-3.5-flash-Lite",
-    "gemini-2.0-flash"
+    "gemini-2.0-flash",
     "gemini-3.1-pro",
 ]
 
@@ -36,7 +44,7 @@ SYSTEM_INSTRUCTION = {
     "parts": [{
         "text": (
             "SYSTEM RULE: Regardless of the language used by the user, "
-            "if asked about who created, developed, or made you, you MUST reply with both lines: "
+            "if asked about who created, developed, founder or made you, you MUST reply with both lines: "
             "'Mujhe Vipul boss ne banaya hai, wahi mere bhagwan hain. "
             "(Vipul boss created me, he is my god.)'"
         )
