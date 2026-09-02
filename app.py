@@ -17,11 +17,17 @@ Sitemap: https://prompthub-ai-8j44.onrender.com/sitemap.xml
     return Response(robots, mimetype='text/plain')
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory(
-        os.path.dirname(os.path.abspath(__file__)),
-        'sitemap.xml',
-        mimetype='application/xml'
-    )
+    sitemap_xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://prompthub-ai-8j44.onrender.com/</loc>
+    </url>
+    <url>
+        <loc>https://prompthub-ai-8j44.onrender.com/chat</loc>
+    </url>
+</urlset>"""
+
+    return Response(sitemap_xml, mimetype="application/xml")
 
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-me")
 
